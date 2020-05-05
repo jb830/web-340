@@ -1,0 +1,13 @@
+{
+  "name": "hello-world",
+  "description": "Illustrates working with node modules",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "\"Professor Krasso\"",
+  "private": true,
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
