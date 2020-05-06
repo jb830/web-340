@@ -1,10 +1,7 @@
 {
   "name": "hello-world",
   "description": "Illustrates working with node modules",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "brumfield-2.2.js",
   "author": "\"Professor Krasso\"",
   "private": true,
   "dependencies": {
