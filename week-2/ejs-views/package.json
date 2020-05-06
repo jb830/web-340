@@ -1,0 +1,16 @@
+{
+  "name": "ejs-views",
+  "version": "1.0.0",
+  "description": "Illustrate use of ejs views with express apps",
+  "main": "brumfield-2.4.js",
+  "scripts": {
+    "test": "na"
+  },
+  "author": "Professor Krasso",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.2",
+    "ejs-lint": "^1.1.0",
+    "express": "^4.17.1"
+  }
+}
