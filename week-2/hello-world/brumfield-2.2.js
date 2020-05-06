@@ -1,5 +1,8 @@
+const header = require('../../brumfield-header.js');
 const express = require('express');
 const http = require('http');
+
+console.log(header.display('Joanna', 'Brumfield', 'Exercise 2.2')+ '\n');
 
 //start express app
 const app = express(); 
