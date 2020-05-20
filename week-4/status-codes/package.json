@@ -1,0 +1,13 @@
+{
+  "name": "brumfield-4.2",
+  "description": "JASON API example",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon brumfield-4.3.js"
+  },
+  "author": "Professor Krasso",
+  "private": true,
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
