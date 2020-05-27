@@ -1,15 +1,15 @@
 /*
 ============================================
-; Title:  brumfield-3.3.js 
+; Title:  brumfield-4.2.js 
 ; Author: Professor Krasso
-; Date: 13 May, 2020
+; Date: 20 May, 2020
 ; Modified by: Joanna Brumfield
 ; Description: Demonstrates creating 
 ; a JSON API
 ;===========================================
 */
 const header = require('../../brumfield-header.js');
-console.log(header.display('Joanna', 'Brumfield', 'Exercise 3.4')+ '\n');
+console.log(header.display('Joanna', 'Brumfield', 'Exercise 4.2')+ '\n');
 
 const express = require('express');
 const http = require('http');
