@@ -1,0 +1,14 @@
+{
+  "name": "ems",
+  "description": "Pug template example",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Professor Krasso",
+  "private": true,
+  "dependencies": {
+    "express": "^4.17.1",
+    "pug": "^3.0.0"
+  }
+}
