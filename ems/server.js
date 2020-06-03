@@ -14,7 +14,7 @@ app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 //Log HTTP requests
-app.use(logger("short"));
+app.use(logger('short'));
 
 //create paths and render ejs views for each page
 app.get('/', function(req, res) {
