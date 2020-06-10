@@ -19,7 +19,7 @@ const http = require('http');
 const app = express();
 app.use(logger('dev'));
 
-const mongoDB = 'mongodb+srv://jbrum830:jM0G05BQMzlc0bRB@buwebdev-cluster-1-zho8o.mongodb.net/dev?retryWrites=true&w=majority';
+const mongoDB = 'mongodb+srv://jbrum830:jM0G05BQMzlc0bRB@buwebdev-cluster-1-zho8o.mongodb.net/fms?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, {
   // useMongoClient: true,
   useNewUrlParser: true,

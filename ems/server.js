@@ -4,17 +4,31 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const ejsLint = require('ejs-lint');
+const mongoose = require('mongoose');
 //create app
 const app = express();
 
 //Set path to views and public folder
-app.set('public', path.resolve(__dirname, 'public'));
+app.use(express.static('public'))
 app.set('views', path.resolve(__dirname, 'views'));
 //set view engine to ejs
 app.set('view engine', 'ejs');
 
 //Log HTTP requests
 app.use(logger('short'));
+
+//mongo setup with mongoose
+const mongoDB = 'mongodb+srv://jbrum830:jM0G05BQMzlc0bRB@buwebdev-cluster-1-zho8o.mongodb.net/fms?retryWrites=true&w=majority';
+mongoose.connect(mongoDB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+mongoose.Promise = global.Promise;
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', function() {
+  console.log('Application connected to compass ems');
+});
 
 //create paths and render ejs views for each page
 app.get('/', function(req, res) {
