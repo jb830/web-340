@@ -1,8 +1,13 @@
-<%- include('header') -%> 
-  <main class="container text-center">
-    <h2 class="font-weight-light">
-      Welcome to my 
-      <span class="text-info"><%= message %></span>
-    </h2>
-  </main>
-<%- include('footer') -%> 
+    <h2>Please enter employee information</h2>
+    <form>
+      <div class="form-group">
+        <label for="txtFirstName">First Name: </label>
+        <input type="text" class="form-control" id="txtFirstName" />
+      </div>
+      <div data-bind="if: displayName">
+        <div class="form-group">
+          <label for="txtLastName">Last Name: </label>
+          <input type="text" class="form-control" id="txtLastName" />
+        </div>
+      </div>
+    </form>

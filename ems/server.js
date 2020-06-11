@@ -5,6 +5,8 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const ejsLint = require('ejs-lint');
 const mongoose = require('mongoose');
+const Employee = require("./models/employee");
+
 //create app
 const app = express();
 
@@ -56,6 +58,13 @@ app.use(function(req, res) {
   res.status(404);
   res.render('404');
 });
+
+let employee = new Employee({
+  firstName: 'John',
+  lastName: 'Doe'
+});
+
+module.exports = Employee;
 
 //server
 http.createServer(app).listen(3050, function() {
