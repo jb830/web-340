@@ -42,11 +42,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.post('/process', function(req, res) {
-  console.log(req.body.txtFirstName, req.body.txtLastName);
-  res.redirect('/');
-});
-
 //mongo setup with mongoose
 const mongoDB = 'mongodb+srv://jbrum830:jM0G05BQMzlc0bRB@buwebdev-cluster-1-zho8o.mongodb.net/fms?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, {
@@ -60,6 +55,29 @@ db.once('open', function() {
   console.log('Application connected to compass ems');
 });
 
+//post user input tp db
+app.post('/process', function (req, res) {
+  console.log(req.body.txtFirstName, req.body.txtLastName);
+  if (!req.body.txtFirstName) {
+    res.status(400).send("Entries must have a name");
+    return;
+  }
+  // get the request's form data
+  let firstName = req.body.txtFirstName;
+  let lastName = req.body.txtLastName;
+  console.log(firstName, lastName);
+  // create a employee model
+  let employee = new Employee({
+    firstName: firstName,
+    lastName: lastName
+  });
+  // save
+  employee.save(function (error) {
+    if (error) throw error;
+    console.log(firstName + " saved successfully!");
+  });
+  res.redirect('/');
+});
 //create paths and render ejs views for each page
 app.get('/', function(req, res) {
   res.render('index', {
