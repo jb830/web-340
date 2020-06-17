@@ -5,7 +5,13 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const ejsLint = require('ejs-lint');
 const mongoose = require('mongoose');
-const Employee = require("./models/employee");
+const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
+const Employee = require('./models/employee');
+const csrf = require('csurf');
+
+//set up for CSRF protection
+const csrfProtection = csrf({ cookie: true });
 
 //create app
 const app = express();
@@ -18,6 +24,28 @@ app.set('view engine', 'ejs');
 
 //Log HTTP requests
 app.use(logger('short'));
+//helmet for setting the Content-Security-Policy in the HTTP Header
+app.use(helmet.xssFilter());
+
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
+
+app.use(cookieParser());
+app.use(csrfProtection);
+app.use(function(req, res, next) {
+  var token = req.csrfToken();
+  res.cookie('XSRF-TOKEN', token);
+  res.locals.csrfToken = token;
+  next();
+});
+
+app.post('/process', function(req, res) {
+  console.log(req.body.txtFirstName, req.body.txtLastName);
+  res.redirect('/');
+});
 
 //mongo setup with mongoose
 const mongoDB = 'mongodb+srv://jbrum830:jM0G05BQMzlc0bRB@buwebdev-cluster-1-zho8o.mongodb.net/fms?retryWrites=true&w=majority';
