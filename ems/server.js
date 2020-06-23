@@ -99,16 +99,33 @@ app.get('/view', function(req, res) {
     message: 'View Page'
   });
 });
+app.get('/view/:queryName', function(req, res) {
+  const queryName = req.params['queryName'];
+
+  Employee.find({'firstName': queryName}, function(err, employees) {
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      console.log(employees);
+
+      if (employees.length > 0) {
+        res.render('view', {
+          title: 'Employee Records',
+          employee: employees
+        })
+      } else {
+        res.redirect('/list');
+      }
+    }
+  })
+});
 //renders 404.ejs page is path not found
 app.use(function(req, res) {
   res.status(404);
   res.render('404');
 });
 
-let employee = new Employee({
-  firstName: 'John',
-  lastName: 'Doe'
-});
 
 module.exports = Employee;
 

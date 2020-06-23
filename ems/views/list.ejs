@@ -1,14 +1,25 @@
-  <table class="table table-bordered">
-      <thead class="bg-info text-light">
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td id="firstName"></td>
-          <td id="lastName"></td>
-        </tr>
-      </tbody>
-    </table>
+
+  </table>
+  <% if (employees.length) { %>
+  <h2 class="pb-3">Fruit Listing</h2>
+  <a href="/new">Add New</a>
+  <table class="table table-bordered table-hover">
+    <thead class="bg-info text-light">
+      <tr>
+        <th>Name</th>
+        <th>Functions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% employees.forEach(function (entry) { %>
+      <tr>
+        <td><%= entry.firstName %> </td>
+        <td><a href="/view/<%= entry.firstName %>">VIEW</a></td>
+      </tr>
+    </tbody>
+    <% }) %>
+  </table>
+  <% } else { %>
+  No entries! <a href="/new">Add one!</a>
+  <% } %>
+  </div>

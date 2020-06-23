@@ -1,6 +1,6 @@
 {
   "name": "ems",
-  "description": "UI dev example using ejs views",
+  "description": "Setting up node/express app with mongoDB",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"
@@ -17,5 +17,8 @@
     "helmet": "^3.23.1",
     "mongoose": "^5.9.18",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "less": "^3.11.3"
   }
 }
