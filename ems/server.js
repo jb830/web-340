@@ -11,7 +11,9 @@ const Employee = require('./models/employee');
 const csrf = require('csurf');
 
 //set up for CSRF protection
-const csrfProtection = csrf({ cookie: true });
+const csrfProtection = csrf({
+  cookie: true
+});
 
 //create app
 const app = express();
@@ -35,7 +37,7 @@ app.use(
 
 app.use(cookieParser());
 app.use(csrfProtection);
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var token = req.csrfToken();
   res.cookie('XSRF-TOKEN', token);
   res.locals.csrfToken = token;
@@ -51,7 +53,7 @@ mongoose.connect(mongoDB, {
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', function() {
+db.once('open', function () {
   console.log('Application connected to compass ems');
 });
 
@@ -78,31 +80,51 @@ app.post('/process', function (req, res) {
   });
   res.redirect('/');
 });
+
 //create paths and render ejs views for each page
-app.get('/', function(req, res) {
-  res.render('index', {
-    message: 'Home Page'
+app.get('/', function (req, res) {
+  Employee.find({}, function (err, employees) {
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      res.render('index', {
+        title: 'Employees',
+        employees: employees
+      })
+    }
   });
 });
-app.get('/list', function(req, res) {
-  res.render('list', {
-    message: 'List Page'
+app.get('/view', function (req, res) {
+  Employee.find({}, function (err, employees) {
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      res.render('view', {
+        employees: employees
+      })
+    }
   });
 });
-app.get('/new', function(req, res) {
-  res.render('new', {
-    message: 'New Page'
-  });
+app.get('/list', function (req, res) {
+  res.render('list', {})
 });
-app.get('/view', function(req, res) {
-  res.render('view', {
-    message: 'View Page'
-  });
+app.get('/new', function (req, res) {
+  res.render('new', {});
 });
-app.get('/view/:queryName', function(req, res) {
+//renders 404.ejs page is path not found
+app.use(function (req, res) {
+  res.status(404);
+  res.render('404');
+});
+
+app.get('/view/:queryName', function (req, res) {
   const queryName = req.params['queryName'];
 
-  Employee.find({'firstName': queryName}, function(err, employees) {
+  Employee.find({
+    'firstName': queryName
+  }, function (err, employees) {
     if (err) {
       console.log(err);
       throw err;
@@ -116,20 +138,14 @@ app.get('/view/:queryName', function(req, res) {
         })
       } else {
         res.redirect('/list');
-      }
-    }
+      };
+    };
   })
 });
-//renders 404.ejs page is path not found
-app.use(function(req, res) {
-  res.status(404);
-  res.render('404');
-});
-
 
 module.exports = Employee;
 
 //server
-http.createServer(app).listen(3050, function() {
+http.createServer(app).listen(3050, function () {
   console.log('App is running on port 3050');
 });

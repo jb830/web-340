@@ -1,20 +1,18 @@
-<%- include('header') -%> 
-  <main class="container text-center">
-    <h2 class="font-weight-light">
-      Welcome to my 
-      <span class="text-info"><%= message %></span>
-    </h2>
-  <br/><br/>
+<%- include('header') -%>
+<main class="container">
+  <h2 class="font-weight-light">
+
   <h2>-- Employee Record --</h2>
   <div>
-      <div class="form-group">
-          txtFirstName">Name:
-          <label for="txtFirstName">Name:</label>
-          <input type="text" class="form-control" id="txtName" value="<%= employees[0].firstName %>" name="txtFirstName" />
-      </div>
+    <div class="form-group">
+      <label for="txtFirstName">Name:</label>
+      <input type="text" class="form-control" id="txtFirstName" value="<%= employees[0].firstName %>"
+        name="txtFirstName" />
+    </div>
   </div>
-  <br /><br />
-  <href="/list">Return to Employees</a>
+  <a href="/">Return to Employees</a> 
+</div> 
+
 </div>
-</main>
-<%- include('footer') -%> 
+</main> 
+<%- include('footer') -%>
