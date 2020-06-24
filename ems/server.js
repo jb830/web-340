@@ -57,31 +57,8 @@ db.once('open', function () {
   console.log('Application connected to compass ems');
 });
 
-//post user input tp db
-app.post('/process', function (req, res) {
-  console.log(req.body.txtFirstName, req.body.txtLastName);
-  if (!req.body.txtFirstName) {
-    res.status(400).send("Entries must have a name");
-    return;
-  }
-  // get the request's form data
-  let firstName = req.body.txtFirstName;
-  let lastName = req.body.txtLastName;
-  console.log(firstName, lastName);
-  // create a employee model
-  let employee = new Employee({
-    firstName: firstName,
-    lastName: lastName
-  });
-  // save
-  employee.save(function (error) {
-    if (error) throw error;
-    console.log(firstName + " saved successfully!");
-  });
-  res.redirect('/');
-});
-
 //create paths and render ejs views for each page
+//render index
 app.get('/', function (req, res) {
   Employee.find({}, function (err, employees) {
     if (err) {
@@ -95,31 +72,27 @@ app.get('/', function (req, res) {
     }
   });
 });
-app.get('/view', function (req, res) {
+//render view for list 
+app.get('/list', function (req, res) {
   Employee.find({}, function (err, employees) {
     if (err) {
       console.log(err);
       throw err;
     } else {
-      res.render('view', {
+      res.render('list', {
+        title: 'Employees',
         employees: employees
       })
     }
   });
 });
-app.get('/list', function (req, res) {
-  res.render('list', {})
-});
+//render new view to add employee records
 app.get('/new', function (req, res) {
   res.render('new', {});
 });
-//renders 404.ejs page is path not found
-app.use(function (req, res) {
-  res.status(404);
-  res.render('404');
-});
 
-app.get('/view/:queryName', function (req, res) {
+//render view of individual employee record
+app.get('/view/:queryName.ejs', function (req, res) {
   const queryName = req.params['queryName'];
 
   Employee.find({
@@ -137,15 +110,45 @@ app.get('/view/:queryName', function (req, res) {
           employee: employees
         })
       } else {
-        res.redirect('/list');
+        console.log('list too short');
+        res.redirect('/');
       };
     };
   })
 });
 
+//post user input to db
+app.post('/process', function (req, res) {
+  console.log(req.body.txtFirstName, req.body.txtLastName);
+  if (!req.body.txtFirstName) {
+    res.status(400).send("Entries must have a name");
+    return;
+  }
+  // get the request's form data
+  let firstName = req.body.txtFirstName;
+  let lastName = req.body.txtLastName;
+
+  // create a employee model
+  let employee = new Employee({
+    firstName: firstName,
+    lastName: lastName
+  });
+  // save
+  employee.save(function (error) {
+    if (error) throw error;
+    console.log(firstName + " saved successfully!");
+  });
+  res.redirect('/');
+});
+
+//renders 404.ejs page is path not found
+app.use(function (req, res) {
+  res.status(404);
+  res.render('404');
+});
+
 module.exports = Employee;
 
-//server
-http.createServer(app).listen(3050, function () {
-  console.log('App is running on port 3050');
-});
+// //server
+app.set('port', process.env.PORT || 3050);
+http.createServer(app).listen(app.get('port'), function() { console.log('Application started on port' + app.get('port')) });

@@ -2,17 +2,19 @@
 <main class="container">
   <h2 class="font-weight-light">
 
-  <h2>-- Employee Record --</h2>
-  <div>
-    <div class="form-group">
-      <label for="txtFirstName">Name:</label>
-      <input type="text" class="form-control" id="txtFirstName" value="<%= employees[0].firstName %>"
-        name="txtFirstName" />
+    <h2>-- Employee Record --</h2>
+    <div>
+      <div class="form-group">
+        <label for="txtFirstName">First Name:</label>
+        <input type="text" class="form-control" id="txtFirstName" value="<%= employee[0].firstName %>"
+          name="txtFirstName" />
+      </div>
+      <div class="form-group">
+        <label for="txtLastName">Last Name:</label>
+        <input type="text" class="form-control" id="txtLastName" value="<%= employee[0].lastName %>"
+          name="txtLastName" />
+      </div>
     </div>
-  </div>
-  <a href="/">Return to Employees</a> 
-</div> 
-
-</div>
-</main> 
+    <a href="/" class="btn btn-info">Return to Employees</a>
+</main>
 <%- include('footer') -%>
